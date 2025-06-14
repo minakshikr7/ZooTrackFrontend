@@ -25,7 +25,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch('http://localhost:5000/Slogin', {
+      const res = await fetch('https://zootrackbackend.onrender.com/Slogin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

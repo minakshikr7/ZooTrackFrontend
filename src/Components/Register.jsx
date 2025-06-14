@@ -14,7 +14,6 @@ const Register = () => {
   0% { filter: hue-rotate(0deg); }
   100% { filter: hue-rotate(360deg); }
 `;
-  console.log(item + "hiiiiiiiii")
 
   const formBg = useColorModeValue('white', 'gray.700');
   const buttonBg = useColorModeValue('blue.500', 'blue.200');
@@ -34,7 +33,7 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch('http://localhost:5000/register', {
+      const res = await fetch('https://zootrackbackend.onrender.com/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
