@@ -44,6 +44,9 @@ const Register = () => {
       });
 
       const data = await res.json();
+        if (data.user) {
+        localStorage.setItem('user', JSON.stringify(data.user));
+      }
       navigate('/', { state: { email, name } })
       if (res.status === 201) {
         setMessage(data.success);

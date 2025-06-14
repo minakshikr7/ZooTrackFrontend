@@ -1,13 +1,22 @@
-import React from 'react';
-import { Box, Flex, IconButton, VStack, Text, Button, Spacer, Divider } from '@chakra-ui/react';
-import { Menu, Users, PawPrint, Home, LogOut } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Box, Flex, VStack, Text, Button, Spacer, Divider } from '@chakra-ui/react';
+import { Users, PawPrint, Home, LogOut } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-
 
 export function Sidebar({ setCurrentView }) {
   const navigate = useNavigate();
+  const [user, setUser] = useState(null); // State to store user
+
+  useEffect(() => {
+    // Get user from localStorage on component mount
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
   const handleLogout = () => {
+    localStorage.removeItem('user'); // Clear user from localStorage
     navigate('/Slogin');
   };
 
@@ -62,16 +71,20 @@ export function Sidebar({ setCurrentView }) {
       <Spacer />
 
       {/* Divider and Logout Button */}
-      <Divider my={6} borderColor="gray.600" />
-      <Button
-        variant="ghost"
-        justifyContent="flex-start"
-        leftIcon={<LogOut size={20} />}
-        onClick={handleLogout}
-        _hover={{ bg: 'red.600' }}
-      >
-        Logout
-      </Button>
+      {user && (
+        <>
+          <Divider my={6} borderColor="gray.600" />
+          <Button
+            variant="ghost"
+            justifyContent="flex-start"
+            leftIcon={<LogOut size={20} />}
+            onClick={handleLogout}
+            _hover={{ bg: 'red.600' }}
+          >
+            Logout
+          </Button>
+        </>
+      )}
     </Box>
   );
 }
